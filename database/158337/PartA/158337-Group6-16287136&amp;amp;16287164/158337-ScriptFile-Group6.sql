@@ -1,0 +1,339 @@
+CREATE TABLE AGENCY (
+Branch_ID char(5) NOT NULL PRIMARY KEY,
+Branch_Name varchar(30) NOT NULL,
+Branch_Location varchar(30) NOT NULL
+);
+
+CREATE TABLE JOBASSIGN (
+Branch_ID char(5) NOT NULL,
+EMP_ID char(3) NOT NULL,
+EMP_Occupation varchar(30) NOT NULL,
+PRIMARY KEY(Branch_ID, Emp_ID)
+);
+
+CREATE TABLE EMPLOYEE(
+Emp_ID char(3) NOT NULL PRIMARY KEY,
+Emp_FirstName varchar(30) NOT NULL, 
+Emp_LastName varchar(30) NOT NULL, 
+Emp_Gender varchar(10) NOT NULL,
+Emp_Contact varchar(30) NOT NULL,
+Emp_Address varchar(40) NOT NULL
+);
+
+CREATE TABLE COMPANY(
+Company_ID char(3) NOT NULL PRIMARY KEY,
+Company_Name varchar(30) NOT NULL, 
+Company_Location varchar(30) NOT NULL, 
+Company_Contact varchar(30) NOT NULL
+);
+
+CREATE TABLE PAYMENT(
+Payment_ID char(3) NOT NULL PRIMARY KEY,
+Payment_Type varchar(30) NOT NULL, 
+Payment_Amount number NOT NULL, 
+Payment_Description varchar(30) NOT NULL,
+Payment_DueDate date NOT NULL,
+Apct_ID char(6) NOT NULL
+);
+
+CREATE TABLE QUALIFICATION (
+Qua_ID char(4) NOT NULL PRIMARY KEY,
+Qua_Descript varchar(30), 
+Qua_StartDate date NOT NULL, 
+Qua_EndDate date NOT NULL,
+Qua_Duration integer NOT NULL,
+Apct_ID char(6) NOT NULL,
+Op_ID char(3) NOT NULL,
+Branch_ID char(5) NOT NULL
+);
+
+CREATE TABLE PREREQUISITE (
+Qua_ID char(4) NOT NULL,
+Course_ID char(3) NOT NULL,
+prerequisite varchar(30),
+PRIMARY KEY(Qua_ID, Course_ID)
+);  
+
+CREATE TABLE PLACEMENTRECORD (
+FileID char(4) NOT NULL PRIMARY KEY,
+PlacedHrs number(6,2) NOT NULL,
+Apct_ID char(6) NOT NULL,
+Op_ID char(3) NOT NULL
+);
+
+
+CREATE TABLE APPLICANT(
+Apct_ID char(6) PRIMARY KEY,
+Apct_FName varchar(30) NOT NULL, 
+Apct_LName varchar(30) NOT NULL, 
+Apct_Gender varchar(10) NOT NULL,
+Apct_Contact varchar(30) NOT NULL,
+Apct_Address varchar(30) NOT NULL, 
+FileID char(4),
+RecordID char(4),
+Payment_ID char(3),
+Qua_ID char(4),
+Enroll_ID char(3)
+);
+
+CREATE TABLE OPENING(
+Op_ID char(3) NOT NULL PRIMARY KEY,
+Op_StartDate date NOT NULL, 
+Op_EndDate date NOT NULL, 
+Op_HrPayRate float NOT NULL, 
+Company_ID char(3) NOT NULL,
+Qua_ID char(4) NOT NULL
+);
+
+
+
+CREATE TABLE JOBHISTORY(
+RecordID char(4) PRIMARY KEY,
+Position varchar(30) NOT NULL, 
+PayRate Float NOT NULL,
+Emp_ID char(3) Not NULL,
+Company_ID char(3) NOT NULL,
+Apct_ID char(6) NOT NULL
+);
+
+CREATE TABLE ENROLLMENT(
+Enroll_ID char(3) PRIMARY KEY,
+Enroll_Type varchar(30) NOT NULL, 
+Enroll_Status varchar(15) NOT NULL,
+Course_ID char(3) NOT NULL,
+Apct_ID char(6) NOT NULL
+);
+
+
+
+CREATE TABLE COURSE(
+Course_ID char(3) PRIMARY KEY,
+Course_Title varchar(30) NOT NULL, 
+Course_Type varchar(30) NOT NULL, 
+Course_Fees number NOT NULL,
+Course_EnrollStatus varchar(30) NOT NULL,
+Session_ID char(3) NOT NULL
+);
+
+
+
+CREATE TABLE TRAININGSESSION(
+Session_ID char(3) PRIMARY KEY,
+Session_Size integer NOT NULL, 
+Session_Type varchar(30) NOT NULL, 
+Session_StartDate date NOT NULL,
+Session_EndDate date NOT NULL,
+Course_ID char(3) NOT NULL,
+Enroll_ID char(3) NOT NULL
+);
+
+
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY';
+
+INSERT INTO AGENCY VALUES('A1001','Pinehill branch', 'Auckland');
+INSERT INTO AGENCY VALUES('A1002', 'Wellington branch','Wellington');
+INSERT INTO AGENCY VALUES('A1003', 'Hamilton branch','Hamilton');
+INSERT INTO AGENCY VALUES('A1004', 'Whangarei branch','Whangarei');
+INSERT INTO AGENCY VALUES('A1005', 'Christchurch branch','Christchurch');
+
+INSERT INTO EMPLOYEE VALUES('V01', 'John', 'Smith', 'M', '021097112321', '6 normal street, Albany');
+INSERT INTO EMPLOYEE VALUES('V02', 'Sharon', 'Miller', 'F', '02102898767', '20 victoria street, Auckland city');
+INSERT INTO EMPLOYEE VALUES('V03', 'Ashely', 'Brown', 'F', '022097342321', '67 cresent street, Stonefield');
+INSERT INTO EMPLOYEE VALUES('V04', 'Edgar', 'Johnson', 'M', '022183732321', '55 mamory street, Glenfield');
+INSERT INTO EMPLOYEE VALUES('V05', 'Erik', 'Jackson', 'M', '02198676756', '17 secret street, Oteha');
+
+INSERT INTO COMPANY VALUES('C01', 'PB', 'Auckland', '9099234');
+INSERT INTO COMPANY VALUES('C02', 'Spark', 'Wellington', '9534234');
+INSERT INTO COMPANY VALUES('C03', 'JB HI-FI', 'Christchurch', '63839876');
+INSERT INTO COMPANY VALUES('C04', 'Fonterra', 'Hamilton', '90096786');
+INSERT INTO COMPANY VALUES('C05', 'CocaCola', 'Whangarei', '9099234');
+
+INSERT INTO PAYMENT VALUES('P01', 'Enrollment fee', 650, 'enrollment fee', '20/02/2019', 'L00001');
+INSERT INTO PAYMENT VALUES('P02', 'Training session fee', 1200, 'training session fee', '10/07/2019', 'L00004' );
+INSERT INTO PAYMENT VALUES('P03', 'Enrollment fee', 760, 'enrollment fee', '20/11/2019', 'L00005' );
+INSERT INTO PAYMENT VALUES('P04', 'Training session fee', 2300, 'Training session fee', '09/05/2019', 'L00003' );
+INSERT INTO PAYMENT VALUES('P05', 'Enrollment fee', 4200, 'enrollment fee', '16/08/2019', 'L00002' );
+
+INSERT INTO QUALIFICATION VALUES('Q001', 'IT Qualification', '20/02/2018', '23/06/2018', 4, 'L00004', 'O03', 'A1002' );
+INSERT INTO QUALIFICATION VALUES('Q002', 'Business Qualification', '16/04/2018', '17/09/2018', 5, 'L00003', 'O04', 'A1005' );
+INSERT INTO QUALIFICATION VALUES('Q003', 'Computer Science Qualification', '01/01/2019', '01/06/2018', 5, 'L00001', 'O05', 'A1001' );
+INSERT INTO QUALIFICATION VALUES('Q004', 'Mathematic Qualification', '20/02/2019', '23/06/2018', 4, 'L00005', 'O01', 'A1004' );
+INSERT INTO QUALIFICATION VALUES('Q005', 'IT Qualification', '20/02/2018', '23/06/2018', 4, 'L00002', 'O02', 'A1003');
+
+
+
+INSERT INTO PREREQUISITE VALUES('Q001', 'C02', 'IT Qualification');
+
+INSERT INTO PREREQUISITE VALUES('Q003', 'C04', 'Computer Science Qualification');
+
+INSERT INTO PREREQUISITE VALUES('Q004', 'C01', 'Mathematic Qualification');
+
+INSERT INTO PREREQUISITE VALUES('Q002', 'C03', 'IT Qualification');
+
+INSERT INTO PREREQUISITE VALUES('Q005', 'C05', 'Business Qualification');
+
+
+
+INSERT INTO PLACEMENTRECORD VALUES('F001', 3, 'L00001', 'O02');
+
+INSERT INTO PLACEMENTRECORD VALUES('F002', 6, 'L00003', 'O04');
+
+INSERT INTO PLACEMENTRECORD VALUES('F003', 4.5, 'L00004', 'O05');
+
+INSERT INTO PLACEMENTRECORD VALUES('F004', 5, 'L00002', 'O03');
+
+INSERT INTO PLACEMENTRECORD VALUES('F005', 2, 'L00005', 'O01');
+
+
+
+INSERT INTO APPLICANT VALUES('L00001', 'John', 'Smith', 'M', '021097112321', '6 normal street, Albany', 'F002', 'J003', 'P02', 'Q001', 'E04');
+
+INSERT INTO APPLICANT VALUES('L00002', 'Mila', 'Taylor', 'F', '022387468309', '12 avenue street, Pinehill', 'F001', 'J005', 'P01', 'Q002', 'E05');
+
+INSERT INTO APPLICANT VALUES('L00003', 'Aurora', 'smith', 'F', '022897364321', '30 east road, Auckland city', 'F005', 'J001', 'P05', 'Q003', 'E02');
+
+INSERT INTO APPLICANT VALUES('L00004', 'Leon', 'Johnson', 'M', '021387493827', '50 avenue, Newmarket', 'F003', 'J002', 'P04', 'Q004', 'E03');
+
+INSERT INTO APPLICANT VALUES('L00005', 'Arthur', 'Jackson', 'M', '021738294829', '18 high street, Auckland City', 'F004', 'J004', 'P03', 'Q005', 'E01');
+
+
+
+INSERT INTO OPENING VALUES('O01', '16/04/2019', '16/08/2019', 15, 'C02','Q002' );
+
+INSERT INTO OPENING VALUES('O02', '03/09/2019', '04/12/2019', 20, 'C03', 'Q003');
+
+INSERT INTO OPENING VALUES('O03', '23/12/2018', '28/04/2019', 45, 'C05', 'Q005');
+
+INSERT INTO OPENING VALUES('O04', '06/05/2019', '16/10/2019', 60, 'C01', 'Q004');
+
+INSERT INTO OPENING VALUES('O05', '20/06/2018', '14/11/2018', 19, 'C04', 'Q001');
+
+
+
+
+INSERT INTO JOBHISTORY VALUES('J001', 'Manager', 19, 'V02', 'C03', 'L00002');
+
+INSERT INTO JOBHISTORY VALUES('J002', 'Staff', 15, 'V03', 'C04', 'L00001');
+
+INSERT INTO JOBHISTORY VALUES('J003', 'Chairman', 17.7, 'V05', 'C05', 'L00004');
+
+INSERT INTO JOBHISTORY VALUES('J004', 'Intern', 10, 'V01', 'C01', 'L00005');
+
+INSERT INTO JOBHISTORY VALUES('J005', 'Staff', 15, 'V04', 'C02', 'L00003');
+
+
+
+INSERT INTO ENROLLMENT VALUES('E01', 'Advance topic', 'pending', 'C02', 'L00003');
+
+INSERT INTO ENROLLMENT VALUES('E02', 'Basic topic', 'enrolled', 'C03', 'L00001');
+
+INSERT INTO ENROLLMENT VALUES('E03', 'Advance topic', 'withdraw','C01', 'L00005');
+
+INSERT INTO ENROLLMENT VALUES('E04', 'Basic topic', 'pending', 'C05', 'L00004');
+
+INSERT INTO ENROLLMENT VALUES('E05', 'Advance topic', 'enrolled', 'C04', 'L00002');
+
+
+
+
+INSERT INTO COURSE VALUES('C01', 'Database developer', 'advance topic', 3000, 'pending', 'S02');
+
+INSERT INTO COURSE VALUES('C02', 'Database structure', 'basic topic', 1200, 'enrolled', 'S01');
+
+INSERT INTO COURSE VALUES('C03', 'user experience design', 'advance topic', 3000, 'enrolled', 'S03');
+
+INSERT INTO COURSE VALUES('C04', 'Database developer', 'advance topic', 3000, 'pending', 'S05');
+
+INSERT INTO COURSE VALUES('C05', 'Database developer', 'advance topic', 3000, 'pending', 'S04');
+
+
+
+INSERT INTO TRAININGSESSION VALUES('S01', 10, 'Practical courses', '16/04/2019', '16/08/2019', 'C02', 'E03');
+
+INSERT INTO TRAININGSESSION VALUES('S02', 20, 'Theoretical courses', '16/04/2018', '16/08/2018', 'C03', 'E02');
+
+INSERT INTO TRAININGSESSION VALUES('S03', 10, 'Practical courses', '04/03/2019', '01/10/2019', 'C04', 'E05');
+
+INSERT INTO TRAININGSESSION VALUES('S04', 20, 'Theoretical courses', '16/12/2018', '10/09/2019', 'C01', 'E04');
+
+INSERT INTO TRAININGSESSION VALUES('S05', 10, 'Practical courses', '09/10/2018', '19/08/2019', 'C05', 'E01');
+
+
+
+
+INSERT INTO JOBASSIGN VALUES('A1003', 'V02', 'Branch Manager');
+
+INSERT INTO JOBASSIGN VALUES('A1002', 'V01', 'Staff');
+
+INSERT INTO JOBASSIGN VALUES('A1004', 'V04', 'Chairman');
+
+INSERT INTO JOBASSIGN VALUES('A1005', 'V03', 'Intern');
+
+INSERT INTO JOBASSIGN VALUES('A1001', 'V05', 'Staff');
+
+
+ALTER TABLE PAYMENT
+ADD FOREIGN KEY (Apct_ID) REFERENCES APPLICANT(Apct_ID);
+
+ALTER TABLE QUALIFICATION
+ADD FOREIGN KEY(Apct_ID) REFERENCES APPLICANT(Apct_ID);
+ALTER TABLE QUALIFICATION
+ADD FOREIGN KEY(Op_ID) REFERENCES Opening(Op_ID);
+ALTER TABLE QUALIFICATION
+ADD FOREIGN KEY(Branch_ID) REFERENCES AGENCY(Branch_ID);
+
+
+ALTER TABLE PREREQUISITE
+ADD FOREIGN KEY(Qua_ID) REFERENCES QUALIFICATION(Qua_ID);
+ALTER TABLE PREREQUISITE
+ADD FOREIGN KEY(Course_ID) REFERENCES COURSE(Course_ID);
+
+ALTER TABLE JOBASSIGN
+ADD FOREIGN KEY(Emp_ID) REFERENCES EMPLOYEE(Emp_ID);
+ALTER TABLE JOBASSIGN
+ADD FOREIGN KEY(Branch_ID) REFERENCES AGENCY(Branch_ID);
+
+ALTER TABLE PLACEMENTRECORD
+ADD FOREIGN KEY(Apct_ID) REFERENCES APPLICANT(Apct_ID);
+ALTER TABLE PLACEMENTRECORD
+ADD FOREIGN KEY(Op_ID) REFERENCES Opening(Op_ID);
+
+ALTER TABLE APPLICANT 
+ADD FOREIGN KEY(FileID) REFERENCES PLACEMENTRECORD(FileID);
+ALTER TABLE APPLICANT
+ADD FOREIGN KEY(RecordID) REFERENCES JOBHISTORY(RecordID);
+ALTER TABLE APPLICANT
+ADD FOREIGN KEY(Payment_ID) REFERENCES PAYMENT(Payment_ID);
+ALTER TABLE APPLICANT
+ADD FOREIGN KEY(Qua_ID) REFERENCES QUALIFICATION(Qua_ID);
+ALTER TABLE APPLICANT
+ADD FOREIGN KEY(Enroll_ID) REFERENCES ENROLLMENT(Enroll_ID);
+
+ALTER TABLE OPENING
+ADD FOREIGN KEY(Company_ID) REFERENCES COMPANY(Company_ID);
+ALTER TABLE OPENING
+ADD FOREIGN KEY(Qua_ID) REFERENCES QUALIFICATION(Qua_ID);
+
+ALTER TABLE JOBHISTORY
+ADD FOREIGN KEY(Emp_ID) REFERENCES EMPLOYEE(Emp_ID);
+ALTER TABLE JOBHISTORY
+ADD FOREIGN KEY(Company_ID) REFERENCES COMPANY(Company_ID);
+ALTER TABLE JOBHISTORY
+ADD FOREIGN KEY(Apct_ID) REFERENCES APPLICANT(Apct_ID);
+
+ALTER TABLE ENROLLMENT
+ADD FOREIGN KEY(Course_ID) REFERENCES COURSE(Course_ID);
+ALTER TABLE ENROLLMENT
+ADD  FOREIGN KEY(Apct_ID) REFERENCES APPLICANT(Apct_ID);
+
+ALTER TABLE COURSE 
+ADD FOREIGN KEY(Session_ID) REFERENCES TRAININGSESSION(Session_ID);
+
+ALTER TABLE TRAININGSESSION
+ADD FOREIGN KEY(Course_ID) REFERENCES COURSE(Course_ID);
+ALTER TABLE TRAININGSESSION
+ADD FOREIGN KEY(Enroll_ID) REFERENCES ENROLLMENT(Enroll_ID);
+  
+
+  
