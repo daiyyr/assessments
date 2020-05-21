@@ -95,14 +95,102 @@ AND GRADE IS NOT NULL
 ORDER BY STUDENT_ID,COURSE_NO
 ;
 
+-- g. 
+-- Write a query listing the details of the faculty member(s) who supervise(s) the
+-- highest number of students. The result should also display the number of students.
+-- The query should also work in situations when more than one supervisor has
+-- highest students (e.g. 2 supervisors each having 10 students, 10 being highest). (3 marks)
+SELECT * FROM
+(
+  SELECT 
+  FACULTY.F_ID,
+  MIN(CONCAT(CONCAT(FACULTY.F_FIRST, ' '), FACULTY.F_LAST)) AS faculty,
+  COUNT(S_ID) AS number_of_students
+  FROM FACULTY
+  INNER JOIN STUDENT ON STUDENT.F_ID = FACULTY.F_ID
+  GROUP BY FACULTY.F_ID
+)
+WHERE NUMBER_OF_STUDENTS =
+(
+  SELECT MAX(NUMBER_OF_STUDENTS) FROM (
+    SELECT 
+    FACULTY.F_ID,
+    MIN(CONCAT(CONCAT(FACULTY.F_FIRST, ' '), FACULTY.F_LAST)) AS faculty,
+    COUNT(S_ID) AS number_of_students
+    FROM FACULTY
+    INNER JOIN STUDENT ON STUDENT.F_ID = FACULTY.F_ID
+    GROUP BY FACULTY.F_ID
+  )
+);
+
+-- h. 
+-- Write a query that will list students enrolled with a total of 15 or more course
+-- credit points. List your results in the decreasing order of total credit points. Do not
+-- assume or hard code the value of the course credits (e.g. 3, 6, etc.). (3 marks)
+SELECT * FROM
+(
+  SELECT 
+  STUDENT.S_ID AS STUDENT_ID,
+  MIN(CONCAT(CONCAT(STUDENT.S_FIRST, ' '), STUDENT.S_LAST)) as NAME,
+  MIN(STUDENT.S_DOB) AS STUDENT_DOB,
+  SUM(CREDITS) AS total_credit_points
+  FROM STUDENT
+  JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
+  JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
+  JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+  GROUP BY STUDENT.S_ID
+)
+WHERE total_credit_points >= 15
+ORDER BY total_credit_points DESC;
 
 
+-- i. 
+-- Write a query that will list student(s) enrolled with the highest total course credit
+-- points. The result should also display the number of courses a student is enrolled
+-- for along with the highest total credit points. (3 marks)
+SELECT * FROM
+(
+  SELECT 
+  STUDENT.S_ID AS STUDENT_ID,
+  MIN(CONCAT(CONCAT(STUDENT.S_FIRST, ' '), STUDENT.S_LAST)) as NAME,
+  MIN(STUDENT.S_DOB) AS STUDENT_DOB,
+  COUNT( COURSE.COURSE_NO) as number_of_courses,
+  SUM(CREDITS) AS total_credit_points
+  FROM STUDENT
+  JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
+  JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
+  JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+  GROUP BY STUDENT.S_ID
+)
+WHERE total_credit_points = 
+(
+  SELECT max(total_credit_points) FROM
+  (
+    SELECT 
+    STUDENT.S_ID AS STUDENT_ID,
+    MIN(CONCAT(CONCAT(STUDENT.S_FIRST, ' '), STUDENT.S_LAST)) as NAME,
+    MIN(STUDENT.S_DOB) AS STUDENT_DOB,
+    SUM(CREDITS) AS total_credit_points
+    FROM STUDENT
+    JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
+    JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
+    JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+    GROUP BY STUDENT.S_ID
+  )
+)
+;
 
-
-SELECT * FROM COURSE_SECTION;
-SELECT * FROM ENROLLMENT;
-SELECT * FROM COURSE;
-
-
+/*  j. 
+Write a query that lists all the courses (with their course names) and the course
+sections that are offered either on a (M)onday or at least four times a week. Also,
+display the number of the days that the courses are offered (e.g. 5 days). (3 marks)
+*/
+SELECT COURSE.COURSE_NO, COURSE.COURSE_NAME, SEC_NUM, COURSE_SECTION.C_SEC_DAY,
+CONCAT(LENGTH(REPLACE(C_SEC_DAY, ' ', '')), ' days')AS NUMBER_OF_THE_DAYS
+FROM COURSE
+JOIN COURSE_SECTION ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+WHERE upper(C_SEC_DAY) like '%M%'
+OR LENGTH(REPLACE(C_SEC_DAY, ' ', '')) >= 4
+;
 
 
