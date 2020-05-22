@@ -1,0 +1,17 @@
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.exe
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.deps.json
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.runtimeconfig.json
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.runtimeconfig.dev.json
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\XML2Mysql.pdb
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.csprojAssemblyReference.cache
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.AssemblyInfoInputs.cache
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.AssemblyInfo.cs
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.pdb
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\System.Data.Odbc.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\runtimes\freebsd\lib\netcoreapp2.0\System.Data.Odbc.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\runtimes\linux\lib\netcoreapp2.0\System.Data.Odbc.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\runtimes\osx\lib\netcoreapp2.0\System.Data.Odbc.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Data.Odbc.dll
+C:\Users\Teemo\Documents\Visual Studio 2015\Projects\Assessments\web\XML2Mysql\XML2Mysql\obj\Debug\netcoreapp3.0\XML2Mysql.csproj.CopyComplete

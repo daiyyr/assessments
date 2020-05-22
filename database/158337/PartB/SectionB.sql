@@ -34,6 +34,7 @@ END;
 -- select * from term;
 -- insert into TERM values(10, 'Spring 2018', 'OPEN', '18/01/2018');
 -- select * from term;
+/
 
 
 /*
@@ -51,6 +52,18 @@ BEGIN
 END;
 -- select * from term;
 -- UPDATE TERM SET STATUS = 'CLOSE' WHERE START_DATE='09/01/21';
--- insert into TERM values(11, 'WINTER 2020', 'OPEN', '18/12/2020');
+-- insert into TERM values(12, 'WINTER 2020', 'OPEN', '18/12/2020');
 -- select * from term;
+/
+
+/*
+l. 
+Write a trigger that does not allow more than two 'Full' ranked professors as part of
+the faculty (For example, trigger should fire if a new (third) Full professor is added
+or rank of one of the existing Associate professors is updated to Full). Provide
+comprehensive test data and results to confirm that the trigger works. (4 marks)
+*/
+
+
+
 

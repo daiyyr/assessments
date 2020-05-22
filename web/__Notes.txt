@@ -1,0 +1,40 @@
+These data were extracted from a larger set. This was done very quickly - if you think key data are missing please let me know.
+These data are provided only for the project work as part of the Massey University course - please do not distribute or use outside of that context.
+
+Excel sheet
+*  dates have been been compromised by Excel - recommend working from the xml files if want to use added/updated dates.
+
+
+Images
+Are available via a REST service - some images are large.  
+*********** Please use the representations (see below) to improve speed and reduce load.  *****************
+
+*  REST service:  http://data.landcareresearch.co.nz
+*  full image:    http://data.landcareresearch.co.nz/<ImageURL>
+		e.g., http://data.landcareresearch.co.nz/Image/1IGV
+
+*  metadata summary:  http://data.landcareresearch.co.nz/<imageURL>/metadatasummary
+eg.,   http://data.landcareresearch.co.nz/Image/1IGV/metadatasummary
+
+* small versions may be requested to improve performance.  *************THIS IS HIGHLY recommend ***************  P
+http://data.landcareresearch.co.nz/<image url>/<representation name>
+
+e.g., http://data.landcareresearch.co.nz/Image/1IGV/WebFull
+
+Name			PixelsOnWidth	PixelsOnHeight	MaintainAspectRatio	PixelsOnLargest	BinaryType	Description
+CISWebLarge		720		540		1			NULL		JPEG	A large image for the CIS website
+eFloraCover		600		600		1			NULL		JPEG	Representation for PDF cover
+PreviewSheet		NULL		NULL		1			330		JPEG	For comms initially
+eFloraFloat		500		500		1			NULL		JPEG	Representation for floated images
+NZVH			NULL		NULL		1			1200		JPEG	The image size for use in the NZVH repository (ALA etc)
+FactsheetsSOLRResult	NULL		130		1			NULL		JPEG	The smaller thumbnail to be used for the SOLR results
+WebThumb		NULL		NULL		1			100		JPEG	100 x 100
+FactsheetLarge		NULL		NULL		1			860		JPEG	the large image to be used in the lightbox
+eFloraCoverBanner	794		260		0			NULL		JPEG	To fill set space as cover banner
+eFloraPlate		2000		2700		1			NULL		JPEG	Image size for full plate for PDF output
+SlideShow		600		NULL		1			NULL		JPEG	Mike's Slideshow
+WebFull			640		480		1			NULL		JPEG	640 x 480
+eBiotaFacetIcon		45		45		1			NULL		JPEG	A 45x45 pixel icon
+WebWidth250Jpg		NULL		NULL		1			250		JPEG	Maximum width is 250
+eFlora2x3		760		760		1			NULL		JPEG	Image size for smaller images gallery for PDF output
+EcrionA4		794		1122		1			NULL		JPEG	To fill A4 page completely using Ecrion
