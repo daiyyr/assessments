@@ -21,7 +21,7 @@ this helps us to evaluate your work against the stated requirements). (10 marks)
 /*
 k.1
 statement level
-Make sure the status of a term is CLOSED if the term started 2 years ago.
+After inserting a term, make sure all terms started 2 year ago has a 'CLOSED' status.
 */
 CREATE OR REPLACE TRIGGER TRG_TERM_STATUS_CLOSED
 AFTER INSERT ON TERM
@@ -30,10 +30,13 @@ BEGIN
     SET STATUS = 'CLOSED'
       WHERE START_DATE <= add_months(CURRENT_DATE, -2*12);
 END;
--- UPDATE TERM SET STATUS = 'OPEN' WHERE START_DATE='15/05/18'
--- select * from term;
--- insert into TERM values(10, 'Spring 2018', 'OPEN', '18/01/2018');
--- select * from term;
+/*
+Testing
+UPDATE TERM SET STATUS = 'OPEN' WHERE START_DATE='15/05/18'
+select * from term;
+insert into TERM values(10, 'Spring 2018', 'OPEN', '19/01/2018'); -- after this inserting, all old terms should be 'Closed'
+select * from term;
+*/
 /
 
 
@@ -50,10 +53,13 @@ BEGIN
     :NEW.STATUS := 'OPEN';
   END IF;
 END;
--- select * from term;
--- UPDATE TERM SET STATUS = 'CLOSE' WHERE START_DATE='09/01/21';
--- insert into TERM values(12, 'WINTER 2020', 'OPEN', '18/12/2020');
--- select * from term;
+/* 
+Testing
+select * from term;
+UPDATE TERM SET STATUS = 'CLOSE' WHERE START_DATE='09/01/21';
+insert into TERM values(12, 'WINTER 2020', 'OPEN', '18/12/2020');
+select * from term;
+*/
 /
 
 /*
@@ -63,6 +69,59 @@ the faculty (For example, trigger should fire if a new (third) Full professor is
 or rank of one of the existing Associate professors is updated to Full). Provide
 comprehensive test data and results to confirm that the trigger works. (4 marks)
 */
+CREATE OR REPLACE TRIGGER TRG_FACULTY_F_RANK
+BEFORE INSERT OR UPDATE OF F_RANK ON FACULTY
+FOR EACH ROW
+DECLARE
+  EXCEED_MAXIMUM_FULL_PROFESSORS EXCEPTION;
+  CURRENT_PROFESSOR_COUNT NUMBER;
+  pragma autonomous_transaction;
+BEGIN
+  IF 
+    REPLACE(UPPER(:NEW.F_RANK),' ','') = 'FULL'
+    AND (:OLD.F_RANK IS NULL OR REPLACE(UPPER(:OLD.F_RANK),' ','')!= 'FULL')
+  THEN
+    SELECT COUNT(*)
+    INTO CURRENT_PROFESSOR_COUNT 
+    FROM FACULTY 
+    WHERE REPLACE(UPPER(F_RANK),' ','') = 'FULL';
+    IF 
+      CURRENT_PROFESSOR_COUNT >= 2
+    THEN
+      DBMS_OUTPUT.PUT_LINE('More than 2 Full professors are not allowed.');
+      RAISE EXCEED_MAXIMUM_FULL_PROFESSORS;
+    END IF;
+  END IF;
+  
+EXCEPTION
+  WHEN EXCEED_MAXIMUM_FULL_PROFESSORS THEN
+    RAISE_APPLICATION_ERROR(-20001, 'CANNOT INSERT OR UPDATE: More than 2 Full professors are not allowed');
+END;
+/* Testing
+select * from FACULTY; -- 2 profesors already
+INSERT INTO FACULTY values(6, 'JACK', 'GREEN', 'J', 9, '354352435', 'Assistant', 100000, 4, 6000, null); -- this shall succeed
+INSERT INTO FACULTY values(7, 'JACK', 'GREEN', 'J', 9, '354352435', 'Full', 100000, 4, 6000, null); -- this shall raise exception
+UPDATE FACULTY SET F_RANK = 'Assis2' WHERE F_ID = 6; -- this shall succeed
+UPDATE FACULTY SET F_RANK = 'Full' WHERE F_ID = 6; -- this shall raise exception
+UPDATE FACULTY SET F_RANK = 'Full', F_SALARY = 10300 WHERE F_ID = 4; -- this shall succeed (:old.f_rank = 'Full')
+UPDATE FACULTY SET F_SALARY = 10300 WHERE F_ID = 4; -- this shall succeed (:old.f_rank = 'Full')
+select * from FACULTY;
+*/
+/
+
+
+/*
+m. 
+Write a procedure to insert a new faculty record. The procedure should also
+automatically calculate the faculty salary value. This calculated salary is 15% less
+than the average salary of the existing faculty members.
+Provide rest of the attribute values as input parameters. Execute your procedure to
+insert at least one faculty record. (3 marks)
+*/
+
+
+
+
 
 
 
