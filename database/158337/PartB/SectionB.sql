@@ -99,8 +99,8 @@ EXCEPTION
 END;
 /* Testing
 select * from FACULTY; -- 2 profesors already
-INSERT INTO FACULTY values(6, 'JACK', 'GREEN', 'J', 9, '354352435', 'Assistant', 100000, 4, 6000, null); -- this shall succeed
-INSERT INTO FACULTY values(7, 'JACK', 'GREEN', 'J', 9, '354352435', 'Full', 100000, 4, 6000, null); -- this shall raise exception
+INSERT INTO FACULTY values(16, 'JACK', 'GREEN', 'J', 9, '354352435', 'Assistant', 100000, 4, 6000, EMPTY_BLOB()); -- this shall succeed
+INSERT INTO FACULTY values(17, 'JACK', 'GREEN', 'J', 9, '354352435', 'Full', 100000, 4, 6000, EMPTY_BLOB()); -- this shall raise exception
 UPDATE FACULTY SET F_RANK = 'Assis2' WHERE F_ID = 6; -- this shall succeed
 UPDATE FACULTY SET F_RANK = 'Full' WHERE F_ID = 6; -- this shall raise exception
 UPDATE FACULTY SET F_RANK = 'Full', F_SALARY = 10300 WHERE F_ID = 4; -- this shall succeed (:old.f_rank = 'Full')
@@ -118,10 +118,37 @@ than the average salary of the existing faculty members.
 Provide rest of the attribute values as input parameters. Execute your procedure to
 insert at least one faculty record. (3 marks)
 */
+CREATE OR REPLACE PROCEDURE insert_faculty_auto_salary( 
+  Lastname VARCHAR, Firstname VARCHAR, MI CHAR, LocationID NUMBER, Phone VARCHAR, RankS VARCHAR, Super NUMBER, PIN NUMBER
+)
+IS
+BEGIN
+INSERT INTO faculty values (
+  (SELECT F_ID + 1 FROM faculty ORDER BY F_ID DESC fetch first 1 row only),
+  Lastname,
+  Firstname,
+  MI,
+  LocationID,
+  Phone,
+  RankS,
+  (select ROUND(0.85 * avg(f_salary), 0) from faculty),
+  Super,
+  PIN,
+  EMPTY_BLOB()
+);
+END;
+/
+-- Testing
+exec insert_faculty_auto_salary('Lucy', 'Ye', 'J', 9, '43254325', 'Associate', 4, 9877);
+-- select * from faculty;
 
 
 
-
+/*
+n. 
+Write a trigger to check that when salary is updated for an existing faculty the raise
+is not over 4%.
+*/
 
 
 
