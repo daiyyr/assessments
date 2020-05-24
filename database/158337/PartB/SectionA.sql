@@ -1,3 +1,7 @@
+/*
+In case of students/faculties with same names, We list their DOB and ID along with their names in Section A
+*/
+
 -- a. 
 -- Write a query that will list all the students who have had their 25th birthday 
 -- (i.e.aged 25 or over). Display students’ ages in complete years (e.g. 27) 
@@ -61,7 +65,7 @@ FROM STUDENT
 JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
 JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
 JOIN TERM ON TERM.TERM_ID = COURSE_SECTION.TERM_ID
-WHERE LOWER(REPLACE(TERM.TERM_DESC,' ','')) LIKE 'fall2017'
+WHERE LOWER(REPLACE(TERM.TERM_DESC,' ','')) LIKE 'fall2017' -- just in case that stored data is not in a good pattern
   or LOWER(REPLACE(TERM.TERM_DESC,' ','')) LIKE 'fall2018'
 GROUP BY STUDENT.S_ID;
 
@@ -70,6 +74,9 @@ GROUP BY STUDENT.S_ID;
 -- Write a query that will list all the students (along with their grade and course
 -- details) who got at least B or better grade (i.e. B or A) in any of their courses. The
 -- list should be in the order of student id. (2 marks)
+
+/*
+-- use this if the requirement is like 'list students's all courses if the student got A or B in any of his/her course'
 SELECT 
 STUDENT.S_ID AS STUDENT_ID,
 CONCAT(CONCAT(STUDENT.S_FIRST, ' '), STUDENT.S_LAST) as NAME,
@@ -93,6 +100,22 @@ WHERE STUDENT.S_ID IN
 )
 AND GRADE IS NOT NULL
 ORDER BY STUDENT_ID,COURSE_NO
+;
+*/
+
+SELECT 
+STUDENT.S_ID AS STUDENT_ID,
+CONCAT(CONCAT(STUDENT.S_FIRST, ' '), STUDENT.S_LAST) as NAME,
+STUDENT.S_DOB AS STUDENT_DOB,
+COURSE.COURSE_NO,
+COURSE.COURSE_NAME,
+ENROLLMENT.GRADE
+FROM STUDENT
+JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
+JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
+JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+WHERE UPPER(REPLACE(ENROLLMENT.GRADE,' ', '')) = 'A'
+OR UPPER(REPLACE(ENROLLMENT.GRADE,' ', '')) = 'B'
 ;
 
 -- g. 
