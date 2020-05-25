@@ -215,6 +215,13 @@ should work even if in future some minor changes are made to the salary data
 type/size). Call this function in a SQL statement for displaying a faculty member’s
 salary. (2 marks)
 */
-
+CREATE OR REPLACE FUNCTION format_salary(amount number)
+RETURN VARCHAR2 IS
+BEGIN
+  RETURN to_char(amount , '$999,999,999,999,999.99');
+END format_salary;
+/
+-- Testing
+select format_salary(f_salary) from faculty;
 
 
