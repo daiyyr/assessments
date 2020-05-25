@@ -1,3 +1,4 @@
+SET SERVEROUTPUT ON;
 /*
 k. 
 Think of some useful business rules or situations where it would be appropriate for
@@ -149,7 +150,71 @@ n.
 Write a trigger to check that when salary is updated for an existing faculty the raise
 is not over 4%.
 */
+CREATE OR REPLACE TRIGGER TRG_FACULTY_F_SALARY_RAISE
+BEFORE UPDATE OF F_SALARY ON FACULTY
+FOR EACH ROW
+DECLARE
+  EXCEED_MAX_SALARY_RAISE EXCEPTION;
+  pragma autonomous_transaction;
+BEGIN
+  IF 
+    :NEW.F_SALARY / :OLD.F_SALARY > 1.04 -- SHOULD NOT OVER 4%
+  THEN
+    DBMS_OUTPUT.PUT_LINE('Salary raise shall not over 4%');
+    RAISE EXCEED_MAX_SALARY_RAISE;
+  END IF;
+  
+EXCEPTION
+  WHEN EXCEED_MAX_SALARY_RAISE THEN
+    RAISE_APPLICATION_ERROR(-20002, 'CANNOT UPDATE: Salary raise shall not over 4%');
+END;
+/
+/*
+Testing
+select * from faculty where f_id = 3; -- orginal salary: $60000
+Update FACULTY set F_SALARY = 70000 where f_id = 3; -- this shall raise EXCEED_MAX_SALARY_RAISE exception
+Update FACULTY set F_SALARY = 62000 where f_id = 3; -- this shall succeed
+*/
 
+
+
+/*
+o. 
+Write a cursor to list course sections for all the MIS courses (along with their
+courses names and credits). (3 marks)
+*/
+DECLARE CURSOR cursor_mic_course_section IS
+SELECT COURSE.COURSE_NO, COURSE.COURSE_NAME, CREDITS, TERM_ID, SEC_NUM,C_SEC_DAY
+FROM COURSE JOIN COURSE_SECTION ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+WHERE COURSE.COURSE_NO LIKE 'MIS%';
+vr_course_section cursor_mic_course_section%rowtype;
+BEGIN
+OPEN cursor_mic_course_section;
+LOOP
+FETCH cursor_mic_course_section INTO vr_course_section;
+EXIT WHEN cursor_mic_course_section%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(
+vr_course_section.COURSE_NO || ', '
+|| vr_course_section.COURSE_NAME
+|| ', Credit: ' || vr_course_section.CREDITS
+|| ', TermId: ' ||vr_course_section.TERM_ID
+|| ', SecNum: ' || vr_course_section.SEC_NUM
+|| ', Days: ' || vr_course_section.C_SEC_DAY
+);
+END LOOP;
+CLOSE cursor_mic_course_section;
+END;
+/
+
+
+/*
+p. 
+Write a function, which can be used to format faculty member’s salary to
+$9,999,999.99. Do not hard code the exact salary datatype (i.e. your function
+should work even if in future some minor changes are made to the salary data
+type/size). Call this function in a SQL statement for displaying a faculty member’s
+salary. (2 marks)
+*/
 
 
 
