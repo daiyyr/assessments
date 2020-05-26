@@ -100,8 +100,8 @@ EXCEPTION
 END;
 /* Testing
 select * from FACULTY; -- 2 profesors already
-INSERT INTO FACULTY values(16, 'JACK', 'GREEN', 'J', 9, '354352435', 'Assistant', 100000, 4, 6000, EMPTY_BLOB()); -- this shall succeed
-INSERT INTO FACULTY values(17, 'JACK', 'GREEN', 'J', 9, '354352435', 'Full', 100000, 4, 6000, EMPTY_BLOB()); -- this shall raise exception
+INSERT INTO FACULTY values(16, 'GREEN', 'JACK', 'J', 9, '354352435', 'Assistant', 100000, 4, 6000, EMPTY_BLOB()); -- this shall succeed
+INSERT INTO FACULTY values(17, 'GREEN', 'JACK', 'J', 9, '354352435', 'Full', 100000, 4, 6000, EMPTY_BLOB()); -- this shall raise exception
 UPDATE FACULTY SET F_RANK = 'Assis2' WHERE F_ID = 6; -- this shall succeed
 UPDATE FACULTY SET F_RANK = 'Full' WHERE F_ID = 6; -- this shall raise exception
 UPDATE FACULTY SET F_RANK = 'Full', F_SALARY = 10300 WHERE F_ID = 4; -- this shall succeed (:old.f_rank = 'Full')
@@ -132,7 +132,8 @@ INSERT INTO faculty values (
   LocationID,
   Phone,
   RankS,
-  (select ROUND(0.85 * avg(f_salary), 0) from faculty),
+  (select ROUND(0.85 * avg(f_salary), 0) from faculty), 
+          -- no definition for 'existing faculty members', then we include all faculties when calculating avg
   Super,
   PIN,
   EMPTY_BLOB()
@@ -140,7 +141,7 @@ INSERT INTO faculty values (
 END;
 /
 -- Testing
-exec insert_faculty_auto_salary('Lucy', 'Ye', 'J', 9, '43254325', 'Associate', 4, 9877);
+exec insert_faculty_auto_salary('Ye', 'Lucy', 'J', 9, '43254325', 'Associate', 4, 9877);
 -- select * from faculty;
 
 
@@ -186,7 +187,7 @@ courses names and credits). (3 marks)
 DECLARE CURSOR cursor_mic_course_section IS
 SELECT COURSE.COURSE_NO, COURSE.COURSE_NAME, CREDITS, TERM_ID, SEC_NUM,C_SEC_DAY
 FROM COURSE JOIN COURSE_SECTION ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
-WHERE COURSE.COURSE_NO LIKE 'MIS%';
+WHERE COURSE.COURSE_NO LIKE '%MIS%';
 vr_course_section cursor_mic_course_section%rowtype;
 BEGIN
 OPEN cursor_mic_course_section;
@@ -222,6 +223,11 @@ BEGIN
 END format_salary;
 /
 -- Testing
-select format_salary(f_salary) from faculty;
+select CONCAT(CONCAT(FACULTY.F_FIRST, ' '), FACULTY.F_LAST) as Name, 
+format_salary(f_salary) as Salary from faculty
+where F_ID = 1;
+
+
+
 
 
