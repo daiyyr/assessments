@@ -19,46 +19,95 @@ Remember to provide the purpose of your triggers (as stated in question l. below
 this helps us to evaluate your work against the stated requirements). (10 marks)
 */
 
+
 /*
-k.1
-statement level
-After inserting a term, make sure all terms started 2 year ago has a 'CLOSED' status.
+k.1 Statement Level
+Add a new field 'ENRL_OVERFLOW' to table COURSE_SECTION, default value 0.
+After adding, deleting or updating enrollments, 
+if a course section exceeds the maximun enrollment, set its ENRL_OVERFLOW to 1.
+If a course section does not exceed the maximun enrollment, set its ENRL_OVERFLOW to 0.
 */
-CREATE OR REPLACE TRIGGER TRG_TERM_STATUS_CLOSED
-AFTER INSERT ON TERM
+
+-- Add column ENRL_OVERFLOW
+DECLARE
+v_column_exists number := 0;
 BEGIN
-  UPDATE TERM
-    SET STATUS = 'CLOSED'
-      WHERE START_DATE <= add_months(CURRENT_DATE, -2*12);
+Select count(*) into v_column_exists 
+from user_tab_cols
+where upper(column_name) = 'ENRL_OVERFLOW' and upper(table_name) = 'COURSE_SECTION';
+if (v_column_exists = 0) then
+    execute immediate 'alter table COURSE_SECTION add (ENRL_OVERFLOW NUMBER(1) DEFAULT 0)';
+end if;
+END;
+/
+-- Create trigger
+CREATE OR REPLACE TRIGGER COURSE_SECTION_ENRL_OVERFLOW
+AFTER INSERT OR DELETE OR UPDATE OF C_SEC_ID ON ENROLLMENT
+BEGIN
+  UPDATE COURSE_SECTION SET ENRL_OVERFLOW = 1
+  WHERE C_SEC_ID IN 
+  (
+    SELECT C_SEC_ID FROM
+    (
+      SELECT COURSE_SECTION.C_SEC_ID, MIN(COURSE_SECTION.MAX_ENRL) AS MAX_ENRL, COUNT(*) AS enrl_count
+      FROM COURSE_SECTION
+      JOIN ENROLLMENT ON ENROLLMENT.C_SEC_ID = COURSE_SECTION.C_SEC_ID
+      GROUP BY COURSE_SECTION.C_SEC_ID
+    )WHERE enrl_count > MAX_ENRL
+  );
+  UPDATE COURSE_SECTION SET ENRL_OVERFLOW = 0
+  WHERE C_SEC_ID IN 
+  (
+    SELECT C_SEC_ID FROM
+    (
+      SELECT COURSE_SECTION.C_SEC_ID, MIN(COURSE_SECTION.MAX_ENRL) AS MAX_ENRL, COUNT(*) AS enrl_count
+      FROM COURSE_SECTION
+      JOIN ENROLLMENT ON ENROLLMENT.C_SEC_ID = COURSE_SECTION.C_SEC_ID
+      GROUP BY COURSE_SECTION.C_SEC_ID
+    )WHERE enrl_count <= MAX_ENRL
+  );
 END;
 /*
-Testing
-UPDATE TERM SET STATUS = 'OPEN' WHERE START_DATE='15/05/18'
-select * from term;
-insert into TERM values(10, 'Spring 2018', 'OPEN', '19/01/2018'); -- after this inserting, all old terms should be 'Closed'
-select * from term;
+-- Testing
+SELECT COURSE_SECTION.C_SEC_ID, MIN(COURSE_SECTION.MAX_ENRL) AS MAX_ENRL, COUNT(*) AS enrl_count, min(ENRL_OVERFLOW)
+      FROM COURSE_SECTION
+      JOIN ENROLLMENT ON ENROLLMENT.C_SEC_ID = COURSE_SECTION.C_SEC_ID
+      WHERE COURSE_SECTION.C_SEC_ID IN (1,9,11)
+      GROUP BY COURSE_SECTION.C_SEC_ID;
+delete from ENROLLMENT where S_ID = 'SM100' and C_SEC_ID = 1; 
+select * from COURSE_SECTION where C_SEC_ID = 1; -- shall not overflow
+insert into ENROLLMENT values('SM100', 9, null); 
+select * from COURSE_SECTION where C_SEC_ID = 9; -- shall overflowed
+update ENROLLMENT set C_SEC_ID = 11 where S_ID = 'SM100' AND C_SEC_ID = 1;
+select * from COURSE_SECTION where C_SEC_ID = 11; -- shall overflowed
+update ENROLLMENT set C_SEC_ID = 1 where S_ID = 'SM100' AND C_SEC_ID = 11;
+select * from COURSE_SECTION where C_SEC_ID = 11; -- shall not overflow
 */
 /
 
 
 /*
-k.2
-row level
-Make sure the status of a term is OPEN if the START_DATE is in future.
+k.2 Row Level
+
+When inserting or updating a term,
+make sure the status is CLOSED if the term started 2 year ago
 */
-CREATE OR REPLACE TRIGGER TRG_TERM_STATUS_OPEN
+CREATE OR REPLACE TRIGGER TRG_TERM_STATUS_CLOSED
 BEFORE INSERT OR UPDATE OF STATUS, START_DATE ON TERM
 FOR EACH ROW
 BEGIN
-  IF :NEW.START_DATE > CURRENT_DATE THEN
-    :NEW.STATUS := 'OPEN';
+  IF :NEW.START_DATE <= add_months(CURRENT_DATE, -2*12) THEN
+    :NEW.STATUS := 'CLOSED';
   END IF;
 END;
 /* 
 Testing
 select * from term;
-UPDATE TERM SET STATUS = 'CLOSE' WHERE START_DATE='09/01/21';
-insert into TERM values(12, 'WINTER 2020', 'OPEN', '18/12/2020');
+UPDATE TERM SET STATUS = 'OPEN' WHERE START_DATE='15/05/18';
+insert into TERM values(
+  (SELECT TERM_ID + 1 FROM TERM ORDER BY TERM_ID DESC fetch first 1 row only),
+  'WINTER 2020', 'OPEN', '19/01/2018'
+);
 select * from term;
 */
 /
@@ -80,7 +129,7 @@ DECLARE
 BEGIN
   IF 
     REPLACE(UPPER(:NEW.F_RANK),' ','') = 'FULL'
-    AND (:OLD.F_RANK IS NULL OR REPLACE(UPPER(:OLD.F_RANK),' ','')!= 'FULL')
+    AND (:OLD.F_RANK IS NULL OR REPLACE(UPPER(:OLD.F_RANK),' ','')!= 'FULL') -- when updating, :old.f_rank is null
   THEN
     SELECT COUNT(*)
     INTO CURRENT_PROFESSOR_COUNT 
