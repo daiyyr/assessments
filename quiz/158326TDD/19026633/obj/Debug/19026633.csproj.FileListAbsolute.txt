@@ -1,0 +1,14 @@
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\19026633.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\19026633.pdb
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.csprojAssemblyReference.cache
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.csproj.CoreCompileInputs.cache
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.csproj.CopyComplete
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.dll
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.pdb

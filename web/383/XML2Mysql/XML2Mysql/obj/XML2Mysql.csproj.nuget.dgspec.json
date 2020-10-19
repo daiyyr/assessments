@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj": {}
+    "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\383\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj": {
+    "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\383\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj",
+        "projectUniqueName": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\383\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj",
         "projectName": "XML2Mysql",
-        "projectPath": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj",
+        "projectPath": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\383\\XML2Mysql\\XML2Mysql\\XML2Mysql.csproj",
         "packagesPath": "C:\\Users\\Teemo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\XML2Mysql\\XML2Mysql\\obj\\",
+        "outputPath": "C:\\Users\\Teemo\\Documents\\Visual Studio 2015\\Projects\\Assessments\\web\\383\\XML2Mysql\\XML2Mysql\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

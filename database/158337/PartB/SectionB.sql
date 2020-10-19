@@ -273,9 +273,10 @@ END format_salary;
 /
 -- Testing
 select CONCAT(CONCAT(FACULTY.F_FIRST, ' '), FACULTY.F_LAST) as Name, 
-format_salary(f_salary) as Salary from faculty
+format_salary(F_SALARY) as number_salary, 
+format_salary(SALARY2) as varchar_salary      -- SALARY2 is in varchar data type '3453463'
+from faculty
 where F_ID = 1;
-
 
 
 

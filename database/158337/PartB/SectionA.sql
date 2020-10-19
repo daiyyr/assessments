@@ -20,8 +20,9 @@ SELECT * FROM(
   select BLDG_CODE, SUM(CAPACITY) AS TOTAL_CAPACITY from LOCATION 
   where CAPACITY >= 5
   GROUP BY BLDG_CODE
-) WHERE TOTAL_CAPACITY >= 150
-;
+) 
+WHERE TOTAL_CAPACITY >= 150
+ORDER BY TOTAL_CAPACITY;
 
 -- c. 
 -- Write a query that will list all faculty supervisors and their respective students.
@@ -116,7 +117,7 @@ JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
 JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
 WHERE UPPER(REPLACE(ENROLLMENT.GRADE,' ', '')) = 'A'
 OR UPPER(REPLACE(ENROLLMENT.GRADE,' ', '')) = 'B'
-;
+ORDER BY STUDENT_ID;
 
 -- g. 
 -- Write a query listing the details of the faculty member(s) who supervise(s) the
@@ -160,12 +161,11 @@ SELECT * FROM
   FROM STUDENT
   JOIN ENROLLMENT ON STUDENT.S_ID = ENROLLMENT.S_ID
   JOIN COURSE_SECTION ON COURSE_SECTION.C_SEC_ID = ENROLLMENT.C_SEC_ID
-  JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO
+  JOIN COURSE ON COURSE.COURSE_NO = COURSE_SECTION.COURSE_NO AND COURSE.CREDITS IS NOT NULL
   GROUP BY STUDENT.S_ID
 )
 WHERE total_credit_points >= 15
 ORDER BY total_credit_points DESC;
-
 
 -- i. 
 -- Write a query that will list student(s) enrolled with the highest total course credit

@@ -1,0 +1,9 @@
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\19026633.exe.config
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\19026633.exe
+C:\Users\Teemo\source\repos\19026633\19026633\bin\Debug\19026633.pdb
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.csprojAssemblyReference.cache
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\_19026633.Form1.resources
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\_19026633.Properties.Resources.resources
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.csproj.GenerateResource.cache
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.exe
+C:\Users\Teemo\source\repos\19026633\19026633\obj\Debug\19026633.pdb

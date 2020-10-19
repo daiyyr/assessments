@@ -1,0 +1,16 @@
+
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\A2_15058803.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\A2_15058803.pdb
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\ClassLibraryCalculator.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\bin\Debug\ClassLibraryCalculator.pdb
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\obj\Debug\A2_15058803.csprojAssemblyReference.cache
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\obj\Debug\A2_15058803.csproj.CoreCompileInputs.cache
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\obj\Debug\A2_15058803.csproj.CopyComplete
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\obj\Debug\A2_15058803.dll
+C:\Users\64210\Desktop\A2_15058803\A2_15058803\obj\Debug\A2_15058803.pdb

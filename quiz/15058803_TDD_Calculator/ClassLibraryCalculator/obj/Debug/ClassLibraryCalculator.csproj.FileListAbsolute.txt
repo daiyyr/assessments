@@ -1,0 +1,7 @@
+
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\bin\Debug\ClassLibraryCalculator.dll
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\bin\Debug\ClassLibraryCalculator.pdb
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.csprojAssemblyReference.cache
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.csproj.CoreCompileInputs.cache
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.dll
+C:\Users\64210\Desktop\A2_15058803\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.pdb

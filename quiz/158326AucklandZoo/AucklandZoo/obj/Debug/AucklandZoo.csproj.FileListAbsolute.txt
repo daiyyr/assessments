@@ -1,0 +1,9 @@
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\bin\Debug\AucklandZoo.exe.config
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\bin\Debug\AucklandZoo.exe
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\bin\Debug\AucklandZoo.pdb
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.csprojAssemblyReference.cache
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.Form1.resources
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.Properties.Resources.resources
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.csproj.GenerateResource.cache
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.exe
+C:\Users\Teemo\source\repos\AucklandZoo\AucklandZoo\obj\Debug\AucklandZoo.pdb

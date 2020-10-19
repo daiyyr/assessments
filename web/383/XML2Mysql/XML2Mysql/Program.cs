@@ -9,11 +9,8 @@ namespace XML2Mysql
 {
     class Program
     {
-
-        //before import:
+        //before importing:
         //ALTER DATABASE manaaki383 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-
         public static string connStrSms = "dsn=manaaki383;DATABASE=manaaki383;UID=root;PASSWORD=onlyoffice;default command timeout=999;";
         static void Main(string[] args)
         {
@@ -88,6 +85,7 @@ namespace XML2Mysql
             }
             
             #endregion
+
             #region NoteForms.xml
             doc = new XmlDocument();
             doc.Load(Path.Combine(xmlPath, "NoteForms.xml"));
@@ -150,7 +148,6 @@ namespace XML2Mysql
             }
             #endregion
             
-
             #region NoteFormNoteImages.xml
             doc = new XmlDocument();
             doc.Load(Path.Combine(xmlPath, "NoteFormNoteImages.xml"));
@@ -293,7 +290,6 @@ namespace XML2Mysql
                 }
             }
             #endregion
-
 
             Console.WriteLine("XML to SQL succeed.");
         }
